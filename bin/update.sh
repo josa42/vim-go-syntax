@@ -6,6 +6,7 @@ run() {
     'autoload/go/config.vim'
     'syntax/go.vim'
     'syntax/gomod.vim'
+    'ftdetect/gofiletype.vim'
   )
 
   echo "Download files"
@@ -20,6 +21,15 @@ run() {
 
   filterConfig > autoload/go/config.vim.tmp
   mv autoload/go/config.vim{.tmp,}
+
+  echo ""
+  echo "Filter gofiletype.vim"
+
+  cat ftdetect/gofiletype.vim \
+    | grep -v 'setfiletype asm$' \
+    | grep -v 'setfiletype gohtmltmpl$' \
+    > ftdetect/gofiletype.vim.tmp
+  mv ftdetect/gofiletype.vim{.tmp,}
 }
 
 filterConfig() {
